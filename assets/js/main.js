@@ -4,7 +4,7 @@ Visualizzare in pagina 5 numeri casuali. Da lì parte un timer di 30 secondi. Do
 const container = document.querySelector('.container');
 const NUM_OF_NUMBERS = 5;
 const NUMS = generateRandomNums(NUM_OF_NUMBERS);
-console.log(NUMS)
+//console.log(NUMS)
 //test array
 //const NUMS = [1,2,3,4,5];
 let userNumbers = [];

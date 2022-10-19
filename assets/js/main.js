@@ -93,13 +93,15 @@ function getGuessedNumbers (){
             spanEl = document.createElement('span');
             spanEl.classList.add('guessed');
             let guessedNumber = userNumbersNoDup[i];
+            //console.log(guessedNumber)
             markupIcon = '<i class="fa-regular fa-circle-check"></i>';
             spanEl.append(guessedNumber);
             spanEl.insertAdjacentHTML('beforeend', markupIcon);
             guessedNumbers.push(guessedNumber);
             counter++;
+            container.append(spanEl);
         }
-        container.append(spanEl);
+        
         
     }
     // ho bisogno del while per decidere quando incrementare l'indice (chiedo perdono)

@@ -31,3 +31,14 @@
     display: inline-block;
     margin: 0.5rem 1rem;
 }
+.guessed {
+    color: green;
+}
+
+.not-guessed {
+    color: red;
+}
+
+.guessed i, .not-guessed i {
+    margin: 0 0.5rem;
+}

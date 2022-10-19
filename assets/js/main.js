@@ -3,15 +3,17 @@ Visualizzare in pagina 5 numeri casuali. Da lì parte un timer di 30 secondi. Do
 
 const container = document.querySelector('.container');
 const NUM_OF_NUMBERS = 5;
-//const Nums = generateRandomNums(numOfNumbers);
+//const NUMS = generateRandomNums(NUM_OF_NUMBERS);
 const NUMS = [1,2,3,4,5];
 let userNumbers = [];
 generateHTML(NUMS, container);
 setTimeout(function(){
     container.innerHTML = '';
-}, 3000);
-setTimeout(getUserNumbers, 4000);
-setTimeout(getGuessedNumbers, 4000);
+}, 2900);
+setTimeout(getUserNumbers, 3000);
+
+setTimeout(getGuessedNumbers, 3000);
+
 
 
 
@@ -66,7 +68,7 @@ function getUserNumbers(){
     for(let i = 0; i < 5; i++){
         userNumber = Number(prompt('Inserisci un numero visto precedentemente'))
         userNumbers.push(userNumber);
-        console.log(i);
+        //console.log(i);
     }
     
     
@@ -78,17 +80,57 @@ function getGuessedNumbers (){
     let scoreEl = document.createElement('div');
     scoreEl.classList.add('score');
     let counter = 0;
-    for(let i = 0; i < NUMS.length; i++){
-        const spanEl = document.createElement('span');
+    let guessedNumbers = [];
+    let notGuessedNumbers = [];
+    let spanEl;
+    let markupIcon;
+    // per tutti gli elementi della lista con i numeri  indovinati, aggiungo il numero, un'icona, una classe e appendo l'elemento span al container
+    for(let i = 0; i < NUMS.length; i++){ 
         if(NUMS.includes(userNumbersNoDup[i])){
             // ho bisogno di stampare il numero in base alla sua posizione rispetto alla lista NUMS
-            spanEl.append('Numero indovinato' + NUMS[NUMS.indexOf(userNumbersNoDup[i])]);
+            spanEl = document.createElement('span');
+            spanEl.classList.add('guessed');
+            let guessedNumber = NUMS[NUMS.indexOf(userNumbersNoDup[i])];
+            markupIcon = '<i class="fa-regular fa-circle-check"></i>';
+            spanEl.append(guessedNumber);
+            spanEl.insertAdjacentHTML('beforeend', markupIcon);
+            guessedNumbers.push(guessedNumber);
             counter++;
-        } 
+        }
+        container.append(spanEl);
+        
+    }
+    // ho bisogno del while per decidere quando incrementare l'indice (chiedo perdono)
+    //genero una lista con i numeri non indovinati, mettendo a confronto tutti i numeri con quelli indovinati
+    let j = 0;
+    while(j < NUMS.length){
+        notGuessedNumbers = NUMS;
+        if(guessedNumbers.includes(notGuessedNumbers[j])) {
+            console.log(notGuessedNumbers[j]);
+            //console.log(notGuessedNumbers.indexOf(guessedNumbers[i]))
+            console.log(j);
+            notGuessedNumbers.splice(j, 1);
+            j = 0;
+        } else {
+            j++
+        }
+    }
+    // per tutti gli elementi della lista con i numeri non indovinati, aggiungo il numero, un'icona, una classe e appendo l'elemento span al container
+    for(let i = 0; i < notGuessedNumbers.length; i++){
+        spanEl = document.createElement('span');
+        spanEl.classList.add('not-guessed');
+        let notGuessedNumber = notGuessedNumbers[i];
+        markupIcon = '<i class="fa-regular fa-circle-xmark"></i>';
+        spanEl.append(notGuessedNumber);
+        spanEl.insertAdjacentHTML('beforeend', markupIcon);
         container.append(spanEl);
     }
+    //display dello score con i numeri indovinati
     scoreEl.innerHTML = `Numeri indovinati: ${counter}`
     container.insertAdjacentElement('afterbegin', scoreEl);
+    //console.log(userNumbersNoDup);
+    //console.log(notGuessedNumbers);
+    //console.log(guessedNumbers)
 }
 
 function removeDuplicates (array){

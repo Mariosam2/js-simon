@@ -106,9 +106,9 @@ function getGuessedNumbers (){
     while(j < NUMS.length){
         notGuessedNumbers = NUMS;
         if(guessedNumbers.includes(notGuessedNumbers[j])) {
-            console.log(notGuessedNumbers[j]);
+            //console.log(notGuessedNumbers[j]);
             //console.log(notGuessedNumbers.indexOf(guessedNumbers[i]))
-            console.log(j);
+            //console.log(j);
             notGuessedNumbers.splice(j, 1);
             j = 0;
         } else {

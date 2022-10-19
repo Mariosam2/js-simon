@@ -3,16 +3,17 @@ Visualizzare in pagina 5 numeri casuali. Da lì parte un timer di 30 secondi. Do
 
 const container = document.querySelector('.container');
 const NUM_OF_NUMBERS = 5;
-//const NUMS = generateRandomNums(NUM_OF_NUMBERS);
-const NUMS = [1,2,3,4,5];
+const NUMS = generateRandomNums(NUM_OF_NUMBERS);
+//test array
+//const NUMS = [1,2,3,4,5];
 let userNumbers = [];
 generateHTML(NUMS, container);
 setTimeout(function(){
     container.innerHTML = '';
-}, 2900);
-setTimeout(getUserNumbers, 3000);
+}, 2900 /*29000*/);
+setTimeout(getUserNumbers, 3000 /*30000*/);
 
-setTimeout(getGuessedNumbers, 3000);
+setTimeout(getGuessedNumbers, 3000 /*30000*/);
 
 
 
@@ -132,7 +133,11 @@ function getGuessedNumbers (){
     //console.log(notGuessedNumbers);
     //console.log(guessedNumbers)
 }
-
+/**
+ * Takes an array and removes every duplicated element
+ * @param {object} array 
+ * @returns {object} an array with no duplicates
+ */
 function removeDuplicates (array){
     let arrayNoDuplicates = [];
     for(let i = 0; i < array.length; i++){

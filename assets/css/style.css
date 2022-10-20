@@ -27,6 +27,11 @@
     padding: 1rem;
 }
 
+.timer {
+    width: 100%;
+    margin: 1rem 0;
+}
+
 .container span{
     display: inline-block;
     margin: 0.5rem 1rem;

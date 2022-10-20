@@ -2,6 +2,7 @@
 Visualizzare in pagina 5 numeri casuali. Da lì parte un timer di 30 secondi. Dopo 30 secondi i numeri scompaiono e l'utente deve inserire, uno alla volta, i numeri che ha visto precedentemente, tramite il prompt(). Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati. */
 
 const container = document.querySelector('.container');
+const timerEl = document.querySelector('.timer');
 const NUM_OF_NUMBERS = 5;
 const NUMS = generateRandomNums(NUM_OF_NUMBERS);
 //console.log(NUMS)
@@ -9,12 +10,25 @@ const NUMS = generateRandomNums(NUM_OF_NUMBERS);
 //const NUMS = [1,2,3,4,5];
 let userNumbers = [];
 generateHTML(NUMS, container);
+let time = 3;
+const timer = setInterval(function(){
+    timerEl.innerHTML = 'Rimangono ' + time + ' s';
+    if(time == 0){
+        clearInterval(timer);
+    } else {
+        time--;
+    }
+},1000)
 setTimeout(function(){
     container.innerHTML = '';
-}, 2900 /*29000*/);
-setTimeout(getUserNumbers, 3000 /*30000*/);
+}, 4000 /*29000*/);
 
-setTimeout(getGuessedNumbers, 3000 /*30000*/);
+setTimeout(function (){
+    getUserNumbers(userNumbers);
+    getGuessedNumbers(NUMS, userNumbers);
+},5000 /* 30000*/);
+
+
 
 
 
@@ -66,7 +80,7 @@ function generateHTML(array, domElement){
 }
 
 // chiedo all'utente 5 prompt in cui inserire i numeri indovinati
-function getUserNumbers(){
+function getUserNumbers(userNumbers){
     for(let i = 0; i < 5; i++){
         userNumber = Number(prompt('Inserisci un numero visto precedentemente'))
         userNumbers.push(userNumber);
@@ -76,7 +90,7 @@ function getUserNumbers(){
     
 }
 
-function getGuessedNumbers (){
+function getGuessedNumbers (numbers,userNumbers){
     // rimuovo i duplicati in modo da stampare solo una volta un numero indovinato
     userNumbersNoDup = removeDuplicates (userNumbers);
     let scoreEl = document.createElement('div');
@@ -87,9 +101,9 @@ function getGuessedNumbers (){
     let spanEl;
     let markupIcon;
     // per tutti gli elementi della lista con i numeri  indovinati, aggiungo il numero, un'icona, una classe e appendo l'elemento span al container
-    for(let i = 0; i < NUMS.length; i++){ 
-        if(NUMS.includes(userNumbersNoDup[i])){
-            // ho bisogno di stampare il numero in base alla sua posizione rispetto alla lista NUMS
+    for(let i = 0; i < numbers.length; i++){ 
+        if(numbers.includes(userNumbersNoDup[i])){
+            // ho bisogno di stampare il numero in base alla sua posizione rispetto alla lista numbers
             spanEl = document.createElement('span');
             spanEl.classList.add('guessed');
             let guessedNumber = userNumbersNoDup[i];
@@ -107,8 +121,8 @@ function getGuessedNumbers (){
     // ho bisogno del while per decidere quando incrementare l'indice (chiedo perdono)
     //genero una lista con i numeri non indovinati, mettendo a confronto tutti i numeri con quelli indovinati
     let j = 0;
-    while(j < NUMS.length){
-        notGuessedNumbers = NUMS;
+    while(j < numbers.length){
+        notGuessedNumbers = numbers;
         if(guessedNumbers.includes(notGuessedNumbers[j])) {
             //console.log(notGuessedNumbers[j]);
             //console.log(notGuessedNumbers.indexOf(guessedNumbers[i]))
